@@ -30,7 +30,7 @@ SELECTED_FEATURES = [
     'Reg.Exercise(Y/N)'
 ]
 
-def preprocess(csv_file="Data/PCOS_data (2).csv", test_size=0.2, random_state=42, save_scaler=True):
+def preprocess(csv_file="Data/PCOS_data_final_merged.csv", test_size=0.2, random_state=42, save_scaler=True):
     df = pd.read_csv(csv_file)
     print(f"   Shape: {df.shape}")
     imp_cols = SELECTED_FEATURES + [Target]
@@ -44,7 +44,7 @@ def preprocess(csv_file="Data/PCOS_data (2).csv", test_size=0.2, random_state=42
         if col in df.columns:
             df[col] = df[col].map({'Yes': 1, 'No': 0, 1: 1, 0: 0})
     
-    numeric_cols = ['Age (yrs)', 'Weight (Kg)', 'Height(Cm) ', 'BMI', 'Cycle length(days)']
+    numeric_cols = [' Age (yrs)', 'Weight (Kg)', 'Height(Cm) ', 'BMI', 'Cycle length(days)']
     for col in numeric_cols:
         if col in df.columns:
             df[col] = pd.to_numeric(df[col], errors='coerce')

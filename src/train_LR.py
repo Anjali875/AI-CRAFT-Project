@@ -7,7 +7,7 @@ import os
 X_train, X_test, y_train, y_test, features, scaler = preprocess()
 
 # Training Logistic Regression:
-logistic_model = LogisticRegression(random_state=42, max_iter=1000)
+logistic_model = LogisticRegression(random_state=42, max_iter=300)
 logistic_model.fit(X_train, y_train)
 
 y_pred = logistic_model.predict(X_test)
