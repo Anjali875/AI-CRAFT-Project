@@ -1,5 +1,3 @@
-# chatbot.py — Rule-based chatbot with VADER sentiment detection for PCOS Analyzer
-
 import re
 
 def analyze_sentiment(text: str) -> str:
@@ -252,9 +250,6 @@ DEFAULT_RESPONSE = (
 )
 
 
-# ─────────────────────────────────────────────
-#  MAIN BOT FUNCTION
-# ─────────────────────────────────────────────
 def get_bot_response(user_text: str, sentiment: str, last_prediction: dict = None) -> str:
     text = user_text.lower().strip()
     prefix = TONE_PREFIX.get(sentiment, "")

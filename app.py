@@ -7,9 +7,6 @@ import plotly.express as px
 from PIL import Image
 import os
 
-# ─────────────────────────────────────────────
-#  PAGE CONFIG
-# ─────────────────────────────────────────────
 st.set_page_config(
     page_title="PCOS Risk Analyzer",
     page_icon="🩺",
@@ -17,11 +14,7 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
-# ─────────────────────────────────────────────
-#  INLINE SVG ILLUSTRATIONS
-# ─────────────────────────────────────────────
 
-# Doctor / health illustration for Home page
 ILLUS_HOME = """
 <svg viewBox="0 0 200 180" xmlns="http://www.w3.org/2000/svg" width="180">
   <!-- body -->
@@ -51,7 +44,6 @@ ILLUS_HOME = """
   <line x1="122" y1="136" x2="130" y2="136" stroke="#a78bfa" stroke-width="1.5"/>
 </svg>"""
 
-# Chart / analytics illustration for Model Insights
 ILLUS_CHART = """
 <svg viewBox="0 0 200 160" xmlns="http://www.w3.org/2000/svg" width="180">
   <!-- background card -->
@@ -77,7 +69,6 @@ ILLUS_CHART = """
   <text x="100" y="30" text-anchor="middle" font-size="11" fill="#7c3aed" font-weight="bold">Model Performance</text>
 </svg>"""
 
-# Chatbot illustration
 ILLUS_CHAT = """
 <svg viewBox="0 0 200 160" xmlns="http://www.w3.org/2000/svg" width="170">
   <!-- bot body -->
@@ -111,7 +102,6 @@ ILLUS_CHAT = """
   <rect x="106" y="122" width="16" height="24" rx="8" fill="#ddd6fe" stroke="#a78bfa" stroke-width="1.5"/>
 </svg>"""
 
-# Risk gauge illustration for prediction page header
 ILLUS_PREDICT = """
 <svg viewBox="0 0 200 130" xmlns="http://www.w3.org/2000/svg" width="180">
   <!-- gauge arc background -->
@@ -134,9 +124,6 @@ ILLUS_PREDICT = """
   <text x="100" y="100" text-anchor="middle" font-size="11" fill="#7c3aed" font-weight="bold">PCOS Risk</text>
 </svg>"""
 
-# ─────────────────────────────────────────────
-#  CUSTOM CSS  — light, clean theme
-# ─────────────────────────────────────────────
 st.markdown("""
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
@@ -276,9 +263,6 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-# ─────────────────────────────────────────────
-#  LOAD MODELS & ASSETS
-# ─────────────────────────────────────────────
 BASE = os.path.dirname(__file__)
 
 @st.cache_resource
@@ -318,9 +302,6 @@ def load_assets():
 
 assets = load_assets()
 
-# ─────────────────────────────────────────────
-#  FEATURE CONFIG
-# ─────────────────────────────────────────────
 NUMERIC_FEATURES = [
     ("Age (years)",         "age_years"),
     ("Weight (kg)",         "weight_kg"),
@@ -357,7 +338,6 @@ FEATURE_TIPS = {
     "cycle_length_days": "Irregular or long cycles are a primary PCOS diagnostic criterion.",
 }
 
-# XGBoost metrics from Anjali's model_comparison.csv (Image 1 values)
 XGB_METRICS = {
     "Accuracy":  0.8684,
     "Precision": 0.8621,
@@ -366,9 +346,6 @@ XGB_METRICS = {
     "ROC-AUC":   0.9152,
 }
 
-# ─────────────────────────────────────────────
-#  PREDICTION HELPER
-# ─────────────────────────────────────────────
 def predict_risk(input_dict):
     model  = assets.get("model")
     scaler = assets.get("scaler")
@@ -392,13 +369,10 @@ def predict_risk(input_dict):
     else:
         level = "High"
 
-   # Fixed top contributing factors based on clinical importance
+   
     top_features = ["Cycle Length Days", "Bmi", "Hair Growth"]
     return prob, level, top_features
 
-# ─────────────────────────────────────────────
-#  GAUGE CHART
-# ─────────────────────────────────────────────
 def make_gauge(prob, level):
     color = {"Low": "#10b981", "Moderate": "#f59e0b", "High": "#ef4444"}[level]
     fig = go.Figure(go.Indicator(
@@ -427,9 +401,6 @@ def make_gauge(prob, level):
     )
     return fig
 
-# ─────────────────────────────────────────────
-#  SIDEBAR NAV
-# ─────────────────────────────────────────────
 with st.sidebar:
     st.markdown("## 🩺 PCOS Analyzer")
     st.markdown("---")
@@ -450,11 +421,8 @@ with st.sidebar:
 
 page = page.strip()
 
-# ═══════════════════════════════════════════════
-#  PAGE 1 – HOME
-# ═══════════════════════════════════════════════
 if "Home" in page:
-    # Hero section with illustration
+
     hero_col, title_col = st.columns([1, 2])
     with hero_col:
         st.markdown(f'<div class="illus-center">{ILLUS_HOME}</div>', unsafe_allow_html=True)
@@ -559,12 +527,11 @@ elif "Prediction" in page:
         st.markdown("Fill in your details below. Yes/No answers are auto-converted for the model.")
         st.markdown("""
         <div style="background:#ede9fe;border-radius:10px;padding:10px 16px;margin-top:8px;border:1px solid #c4b5fd">
-            <small style="color:#4c1d95">
+            <span style="color:#4c1d95;font-size:13px">
             🤖 <b>Model:</b> XGBoost &nbsp;|&nbsp;
             📊 <b>Accuracy:</b> 86.8% &nbsp;|&nbsp;
             🎯 <b>ROC-AUC:</b> 91.5%
-                
-            </small>
+            </span>
         </div>""", unsafe_allow_html=True)
 
     st.markdown("---")
@@ -943,11 +910,11 @@ elif "Insights" in page:
         st.markdown("""
         | Metric | What it means |
         |--------|--------------|
-        | **Accuracy** | Out of all predictions, how many were correct (80.7%) |
-        | **Precision** | Of all predicted PCOS cases, how many actually had PCOS (74.2%) |
-        | **Recall** | Of all actual PCOS cases, how many did the model correctly catch (63.9%) |
-        | **F1-Score** | Balance between Precision and Recall (68.7%) |
-        | **ROC-AUC** | Overall ability to distinguish PCOS vs non-PCOS — higher is better (84.4%) |
+        | **Accuracy** | Out of all predictions, how many were correct (86.8%) |
+        | **Precision** | Of all predicted PCOS cases, how many actually had PCOS (86.2%) |
+        | **Recall** | Of all actual PCOS cases, how many did the model correctly catch (69.4%) |
+        | **F1-Score** | Balance between Precision and Recall (76.9%) |
+        | **ROC-AUC** | Overall ability to distinguish PCOS vs non-PCOS — higher is better (91.5%) |
         """)
 
     st.markdown("---")
