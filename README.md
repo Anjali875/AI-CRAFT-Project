@@ -50,16 +50,13 @@ These models are compared to determine which performs best for predicting PCOS r
 
 ### Web Application
 
-* Flask
-* HTML
-* CSS
+* Stremlit
 
 ### Visualization
 
 * Matplotlib
 * Plotly
 
----
 
 ## Project Structure
 
@@ -91,8 +88,6 @@ AI-CRAFT-PROJECT
 │
 └── README.md
 ```
-
-
 ## How to Run the Project
 
 ### 1. Clone the repository
