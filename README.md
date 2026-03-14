@@ -50,7 +50,7 @@ These models are compared to determine which performs best for predicting PCOS r
 
 ### Web Application
 
-* Stremlit
+* Streamlit
 
 ### Visualization
 
