@@ -1,0 +1,51 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@500;600;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  /* Backgrounds & surfaces */
+  --color-warm-white: #FFF9FA;
+  --color-blush: #FDF0F4;
+  --color-soft-rose: #F7C8D8;
+
+  /* PCOS + primary (rose) */
+  --color-pcos: #E8658A;
+  --color-primary: #E8658A;
+
+  /* Endometriosis (darker purple) */
+  --color-endo: #8A55A8;
+  --color-endo-light: #EDE8F9;
+
+  /* AI assistant (soft blue) */
+  --color-ai: #3E7CB1;
+  --color-ai-light: #E8F1FA;
+
+  /* Result band: High likelihood */
+  --color-deep-rose: #D4456E;
+
+  /* Text */
+  --color-charcoal: #2D2D2D;
+  --color-body: #2D2D2D;
+
+  /* Borders / dividers */
+  --color-divider: #F3E8EE;
+
+  /* Fonts */
+  --font-heading: 'Poppins', sans-serif;
+  --font-body: 'Inter', sans-serif;
+
+  /* Radius */
+  --radius-card: 1.25rem;
+  --radius-pill: 100px;
+  --radius-input: 0.75rem;
+}
+
+@layer base {
+  body {
+    background-color: var(--color-warm-white);
+    color: var(--color-charcoal);
+    font-family: var(--font-body);
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+  }
+}
