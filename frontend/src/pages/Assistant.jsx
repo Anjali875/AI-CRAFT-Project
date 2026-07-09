@@ -2,7 +2,7 @@ import { useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   Bot, Send, Sparkles, Trash2, ClipboardCheck, ShieldCheck, TriangleAlert,
-  ChevronRight, Check, Info, Image as ImageIcon,
+  ChevronRight, Check, Info,
 } from "lucide-react";
 import { useResult } from "../ResultContext";
 import { useChat } from "../useChat";
@@ -74,7 +74,11 @@ export default function Assistant() {
         </div>
 
         <div className="rounded-card bg-ai-light border border-ai/20 p-4">
-          <IllustrationPlaceholder />
+          <img
+            src="/illustrations/assistant-hero.svg"
+            alt="AI health assistant illustration"
+            className="w-full h-24 object-contain"
+          />
           <div className="flex items-center gap-2 mt-3 mb-1">
             <ShieldCheck size={15} className="text-ai" />
             <p className="text-sm font-semibold text-charcoal">Your privacy matters</p>
@@ -222,15 +226,6 @@ export default function Assistant() {
           </p>
         </div>
       </aside>
-    </div>
-  );
-}
-
-function IllustrationPlaceholder() {
-  return (
-    <div className="rounded-input border border-dashed border-ai/40 bg-white/50 h-24 flex flex-col items-center justify-center text-body gap-1">
-      <ImageIcon size={20} className="opacity-40" />
-      <span className="text-[10px]">Illustration</span>
     </div>
   );
 }
